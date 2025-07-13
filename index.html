@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gestion Hôpital - Patients</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        html, body {
+            height: 100%;
+        }
+        body {
+            background-color: #f8f9fa;
+            background-image: url('/static/image1.jpg');
+            background-size: cover; /* Pour que l'image couvre tout l'écran */
+            background-repeat: no-repeat;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            flex: 1; /* Pour occuper l'espace restant et pousser le footer en bas */
+        }
+        .header-title {
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        .btn-delete {
+            background-color: #e74c3c;
+            border: none;
+        }
+        .btn-delete:hover {
+            background-color: #c0392b;
+        }
+        .search-form input {
+            max-width: 200px;
+        }
+        @media (max-width: 576px) {
+            .search-form input {
+                max-width: 100%;
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+            <h1 class="header-title mb-3 mb-md-0">Gestion Hôpital</h1>
+            <a href="{{ url_for('add_patient') }}" class="btn btn-info">Ajouter un patient</a>
+        </div>
+
+        <form class="form-inline mb-4 search-form" method="get" action="{{ url_for('search') }}">
+            <input type="text" class="form-control mr-2 mb-2 mb-sm-0" name="symptome" placeholder="Symptôme" />
+            <input type="text" class="form-control mr-2 mb-2 mb-sm-0" name="diagnostic" placeholder="Diagnostic" />
+            <input type="text" class="form-control mr-2 mb-2 mb-sm-0" name="traitement" placeholder="Traitement" />
+            <button type="submit" class="btn btn-info">Rechercher</button>
+        </form>
+
+        {% if patients %}
+        <table class="table table-hover table-bordered bg-white shadow-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for patient in patients %}
+                <tr>
+                    <td>{{ patient['nom'] }}</td>
+                    <td>{{ patient['prenom'] }}</td>
+                    <td>
+                        <a href="{{ url_for('view_patient', patient_id=patient['_id']) }}" class="btn btn-info">Voir</a>
+                        <a href="{{ url_for('delete_patient', patient_id=patient['_id']) }}" class="btn btn-primary" onclick="return confirm('Voulez-vous vraiment supprimer ce patient ?');">Supprimer</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="alert alert-warning" role="alert">
+            Aucun patient trouvé.
+        </div>
+        {% endif %}  
+
+    </div>
+
+    <footer class="text-center text-white py-3" style="background-color: rgba(0,0,0,0.6);">
+        &copy; 2025 Hôpital - Tous droits réservés.
+    </footer>
+</body>
+</html>
+
+

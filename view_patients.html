@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Dossier patient</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            background-image: url('/static/image3.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            color: #2c3e50;
+        }
+        .container {
+            flex: 1; /* Occupe tout l'espace restant */
+        }
+        .overlay {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            margin-top: 2rem;
+        }
+        h1, h2 {
+            font-weight: 700;
+            color: #007bff;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.95);
+            border: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            color: white;
+            background-color: rgba(0,0,0,0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="container overlay">
+        <h1>Dossier de {{ patient['nom'] }} {{ patient['prenom'] }}</h1>
+        <p><strong>Âge :</strong> {{ patient['age'] }}</p>
+        <p><strong>Sexe :</strong> {{ patient['sexe'] }}</p>
+        <p><strong>Antécédents :</strong> {{ patient['antecedents'] }}</p>
+        <a href="{{ url_for('add_consultation', patient_id=patient['_id']) }}" class="btn btn-primary mb-4">Ajouter une consultation</a>
+
+        <h2>Consultations</h2>
+        {% if patient['consultations'] %}
+            {% for c in patient['consultations'] %}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Date : {{ c['date'] }}</h5>
+                        <p><strong>Symptômes :</strong> {{ c['symptomes'] }}</p>
+                        <p><strong>Diagnostic :</strong> {{ c['diagnostic'] }}</p>
+                        <p><strong>Prescriptions :</strong>
+                            {% for p in c['prescriptions'] %}
+                                <br>{{ p['medicament'] }} ({{ p['dose'] }} pendant {{ p['duree'] }})
+                            {% endfor %}
+                        </p>
+                        <p><strong>Examens :</strong>
+                            {% for e in c['examens'] %}
+                                <br>{{ e['type'] }} - {{ e['resultat'] }} ({{ e['date'] }})
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-info">Aucune consultation enregistrée.</div>
+        {% endif %}
+    </div>
+
+    <footer>
+        &copy; 2025 Hôpital - Tous droits réservés.
+    </footer>
+</body>
+</html>
+
+
+

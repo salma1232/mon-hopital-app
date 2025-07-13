@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ajouter consultation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            background-image: url('/static/image3.jpg'); /* Remplace par ton image */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            color: #2c3e50;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            margin-top: 3rem;
+        }
+        h1, h4 {
+            color: #007bff;
+            font-weight: 700;
+        }
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ajouter une consultation</h1>
+        <form method="post">
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" name="date" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Symptômes (séparés par des virgules)</label>
+                <input type="text" name="symptomes" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Diagnostic</label>
+                <input type="text" name="diagnostic" class="form-control">
+            </div>
+            <h4>Prescription</h4>
+            <div class="form-group">
+                <label>Médicament</label>
+                <input type="text" name="medicament" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Dose</label>
+                <input type="text" name="dose" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Durée</label>
+                <input type="text" name="duree" class="form-control">
+            </div>
+            <h4>Examen</h4>
+            <div class="form-group">
+                <label>Type</label>
+                <input type="text" name="type_examen" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Résultat</label>
+                <input type="text" name="resultat_examen" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" name="date_examen" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Ajouter</button>
+        </form>
+    </div>
+</body>
+</html>
